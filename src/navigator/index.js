@@ -7,6 +7,7 @@ import {Welcome} from '../screens/Welcome';
 import {QRCodeScanner} from '../screens/QRCodeScanner';
 import {MeetingSetup} from '../screens/MeetingSetup';
 import {Meeting} from '../screens/MeetingScreen';
+import { FCMSetup } from '../components/FCMSetup';
 
 const AppStack = createNativeStackNavigator();
 const navigationOptions = {
@@ -25,28 +26,30 @@ const AppStackNavigator = () => {
 
   return (
     <NavigationContainer>
-      <AppStack.Navigator initialRouteName="WelcomeScreen">
-        <AppStack.Screen
-          name="WelcomeScreen"
-          component={Welcome}
-          options={navigationOptions}
-        />
-        <AppStack.Screen
-          name="QRCodeScannerScreen"
-          component={QRCodeScanner}
-          options={navigationOptions}
-        />
-        <AppStack.Screen
-          name="MeetingSetupScreen"
-          component={MeetingSetup}
-          options={navigationOptions}
-        />
-        <AppStack.Screen
-          name="MeetingScreen"
-          component={Meeting}
-          options={navigationOptions}
-        />
-      </AppStack.Navigator>
+      <FCMSetup>
+        <AppStack.Navigator initialRouteName="WelcomeScreen">
+          <AppStack.Screen
+            name="WelcomeScreen"
+            component={Welcome}
+            options={navigationOptions}
+          />
+          <AppStack.Screen
+            name="QRCodeScannerScreen"
+            component={QRCodeScanner}
+            options={navigationOptions}
+          />
+          <AppStack.Screen
+            name="MeetingSetupScreen"
+            component={MeetingSetup}
+            options={navigationOptions}
+          />
+          <AppStack.Screen
+            name="MeetingScreen"
+            component={Meeting}
+            options={navigationOptions}
+          />
+        </AppStack.Navigator>
+      </FCMSetup>
     </NavigationContainer>
   );
 };
