@@ -19,3 +19,10 @@ const HeadlessCheck = ({ isHeadless, ...restProps }) => {
 }
 
 AppRegistry.registerComponent(appName, () => HeadlessCheck);
+
+AppRegistry.registerHeadlessTask('RNCallKeepBackgroundMessage', () => ({ name, callUUID, handle }) => {
+  // Make your call here
+  
+  console.log('`RNCallKeepBackgroundMessage` task called', name, callUUID, handle);
+  return Promise.resolve();
+});

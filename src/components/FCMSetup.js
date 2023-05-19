@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
+import RNCallKeep from 'react-native-callkeep';
 import messaging from '@react-native-firebase/messaging';
 import { requestNotifications } from 'react-native-permissions';
 
 export const FCMSetup = ({ children }) => {
-  // This effect handles Firebase Cloud Messaging permissions
+  // This effect handles Firebase Cloud Messaging & RNCallKeep permissions
   useEffect(() => {
     async function requestUserPermission() {
       // Handle permission on IOS
@@ -20,6 +21,26 @@ export const FCMSetup = ({ children }) => {
        const result = await requestNotifications([]);
        console.log('Authorization status:', result);
       }
+
+      // Handle Callkeep setup and permissions
+      RNCallKeep.setup({
+        android: {
+          alertTitle: 'Permissions required',
+          alertDescription: 'This application needs to access your phone accounts',
+          cancelButton: 'Cancel',
+          okButton: 'ok',
+          imageName: 'phone_account_icon',
+          // additionalPermissions: [PermissionsAndroid.PERMISSIONS.example],
+          additionalPermissions: [],
+          // Required to get audio in background when using Android 11
+          foregroundService: {
+            channelId: 'com.company.my',
+            channelName: 'Foreground service for my app',
+            notificationTitle: 'My app is running on background',
+            // notificationIcon: 'Path to the resource icon of the notification',
+          },
+        }
+      });
     }
 
     requestUserPermission();

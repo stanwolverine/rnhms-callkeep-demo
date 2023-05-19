@@ -13,6 +13,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3C3BBF246409A3A312589D93 /* libPods-Sample67App-Sample67AppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 932A73F927210BBBBCA05AC6 /* libPods-Sample67App-Sample67AppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		993035B62A16654B00CB2193 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 993035B52A16654B00CB2193 /* GoogleService-Info.plist */; };
+		993035B72A16654B00CB2193 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 993035B52A16654B00CB2193 /* GoogleService-Info.plist */; };
 		DF4D20237661004DF6BA663A /* libPods-Sample67App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8B7ACFA461ECA0403C78BF9 /* libPods-Sample67App.a */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,7 @@
 		5DDA7EBD03C961F9B690B4F4 /* Pods-Sample67App-Sample67AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample67App-Sample67AppTests.debug.xcconfig"; path = "Target Support Files/Pods-Sample67App-Sample67AppTests/Pods-Sample67App-Sample67AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Sample67App/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		932A73F927210BBBBCA05AC6 /* libPods-Sample67App-Sample67AppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sample67App-Sample67AppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		993035B52A16654B00CB2193 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EFC85847D60A0FFDF9334A2A /* Pods-Sample67App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample67App.release.xcconfig"; path = "Target Support Files/Pods-Sample67App/Pods-Sample67App.release.xcconfig"; sourceTree = "<group>"; };
 		F8B7ACFA461ECA0403C78BF9 /* libPods-Sample67App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sample67App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +89,7 @@
 		13B07FAE1A68108700A75B9A /* Sample67App */ = {
 			isa = PBXGroup;
 			children = (
+				993035B52A16654B00CB2193 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -114,7 +118,6 @@
 				5DDA7EBD03C961F9B690B4F4 /* Pods-Sample67App-Sample67AppTests.debug.xcconfig */,
 				43EA1BC02472860000C48023 /* Pods-Sample67App-Sample67AppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -236,6 +239,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				993035B72A16654B00CB2193 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +249,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				993035B62A16654B00CB2193 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
