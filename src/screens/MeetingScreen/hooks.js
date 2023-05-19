@@ -21,12 +21,14 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Toast from 'react-native-simple-toast';
+import { PERMISSIONS } from 'react-native-permissions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Constants } from '../../utils/types';
 import { clearHmsReference, saveUserData } from '../../redux/actions';
 import { removeNode, removeNodeWithPeerId, removeTrackFromNodes, updateNode, updateNodeWithPeer } from './utils';
+import { checkPermissions } from '../../utils/functions';
 
 /**
  * Creates an instance of HMSTrackSettings
@@ -390,13 +392,18 @@ export const usePeerTrackNodes = () => {
 	// Effect to handle HMSSDk and Listeners Setup 
 	useEffect(() => {
 		/**
-		 * Returning early if we don't have Auth Token
-		 * For more info, Check out {@link https://www.100ms.live/docs/react-native/v2/foundation/security-and-tokens | Token Concept}
+		 * Returning early if we don't have Room Code
+		 * For more info, Check out {@link https://www.100ms.live/docs/react-native/v2/quickstart/token#get-room-code-from-100ms-dashboard | Room Code}
 		 */
-		if (!params.token) return;
+		if (!params.roomCode) return;
 
 		const joinMeeting = async () => {
 			setLoading(true);
+
+      await checkPermissions([
+        PERMISSIONS.ANDROID.CAMERA,
+        PERMISSIONS.ANDROID.RECORD_AUDIO,
+      ]);
 
 			/**
 			 * Getting Track Settings to set initial state of local tracks
@@ -415,6 +422,9 @@ export const usePeerTrackNodes = () => {
 
 			// Saving HMSSDK instance in redux store
 			dispatch(saveUserData({ hmsInstance }));
+
+      // Generating Auth Token from Room Code
+      const token = await hmsInstance.getAuthTokenByRoomCode(params.roomCode, params.userId);
 
 			/**
 			 * Adding HMSSDK Event Listeners before calling Join method on HMSSDK instance
@@ -456,7 +466,7 @@ export const usePeerTrackNodes = () => {
 			 * For more info, Check out {@link https://www.100ms.live/docs/react-native/v2/features/join#join-a-room | Join a Room}
 			 */
 			const hmsConfig = new HMSConfig({
-				authToken: params.token,
+				authToken: token,
 				username: userName,
 			});
 
@@ -464,7 +474,7 @@ export const usePeerTrackNodes = () => {
 		};
 
 		joinMeeting();
-	}, [params.token, userName, joinConfig.mutedAudio, joinConfig.mutedVideo]);
+	}, [params.roomCode, params.userId, userName, joinConfig.mutedAudio, joinConfig.mutedVideo]);
 
 	// When effect unmounts for any reason, We are calling leave function
 	useEffect(() => {

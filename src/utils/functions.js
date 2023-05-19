@@ -33,36 +33,17 @@ export const getInitials = (name) => {
   return initials.toUpperCase();
 };
 
-export const callService = async (
-  userID,
+export const getRoomCodeAndUserId = async (
   roomLink,
 ) => {
-  let roomCode;
-  let subdomain;
-  let response;
-  if (validateUrl(roomLink)) {
-    const {code, domain} = getRoomLinkDetails(roomLink);
-    roomCode = code;
-    subdomain = domain;
-
-    if (!code || !domain) {
-      return Promise.reject('code, domain not found');
-    }
-
-    response = await services.fetchTokenFromLink({
-      code,
-      subdomain,
-      userID,
-    });
-  } else {
-    response = await services.fetchToken({
-      userID,
-      roomID: roomLink,
-    });
+  if (!validateUrl(roomLink)) {
+    return Promise.reject('Invalid room join link');
   }
 
-  if (response?.error || !response?.token) {
-    return Promise.reject(response?.msg);
+  const {roomCode, roomDomain: subdomain} = getRoomLinkDetails(roomLink);
+
+  if (!roomCode || !subdomain) {
+    return Promise.reject('Room Code, Subdomain not found');
   }
 
   const permissions = await checkPermissions([
@@ -76,13 +57,26 @@ export const callService = async (
   }
 
   return {
-    token: response?.token,
-    userID: userID,
-    roomCode: roomCode,
-    endpoint: subdomain && subdomain.search('.qa-') >= 0
-      ? 'https://qa-init.100ms.live/init'
-      : undefined,
+    roomCode,
+    userId: getRandomUserId(6),
   };
+};
+
+/**
+ * @param min minimum range value
+ * @param max maximum range value
+ * @returns value between min and max, min is inclusive and max is exclusive
+ */
+export const getRandomNumberInRange = (min, max) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
+export const getRandomUserId = (length) => {
+  return Array.from({length}, () => {
+    const randomAlphaAsciiCode = getRandomNumberInRange(97, 123); // 97 - 122 is the ascii code range for a-z chars
+    const alphaCharacter = String.fromCharCode(randomAlphaAsciiCode);
+    return alphaCharacter;
+  }).join('');
 };
 
 export const checkPermissions = async (
@@ -91,25 +85,47 @@ export const checkPermissions = async (
   if (Platform.OS === 'ios') {
     return true;
   }
-  return await requestMultiple(permissions)
-    .then(results => {
-      let allPermissionsGranted = true;
-      for (let permission in permissions) {
-        if (!(results[permissions[permission]] === RESULTS.GRANTED)) {
-          allPermissionsGranted = false;
-        }
-        console.log(
-          permissions[permission],
-          ':',
-          results[permissions[permission]],
-        );
+
+  try {
+    const requiredPermissions = permissions.filter(
+      permission =>
+        permission.toString() !== PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
+    );
+
+    const results = await requestMultiple(requiredPermissions);
+
+    let allPermissionsGranted = true;
+    for (let permission in requiredPermissions) {
+      if (!(results[requiredPermissions[permission]] === RESULTS.GRANTED)) {
+        allPermissionsGranted = false;
       }
-      return allPermissionsGranted;
-    })
-    .catch(error => {
-      console.log(error);
-      return false;
-    });
+      console.log(
+        requiredPermissions[permission],
+        ':',
+        results[requiredPermissions[permission]],
+      );
+    }
+
+    // Bluetooth Connect Permission handling
+    if (
+      permissions.findIndex(
+        permission =>
+          permission.toString() === PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
+      ) >= 0
+    ) {
+      const bleConnectResult = await request(
+        PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
+      );
+      console.log(
+        `${PERMISSIONS.ANDROID.BLUETOOTH_CONNECT} : ${bleConnectResult}`,
+      );
+    }
+
+    return allPermissionsGranted;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 };
 
 export const getRoomLinkDetails = (
@@ -121,18 +137,18 @@ export const getRoomLinkDetails = (
     roomLink,
   );
 
-  let code = '';
-  let domain = '';
+  let roomCode = '';
+  let roomDomain = '';
 
   if (codeObject && domainObject) {
-    code = codeObject[0];
-    domain = domainObject[0];
-    domain = domain.replace('https://', '');
+    roomCode = codeObject[0];
+    roomDomain = domainObject[0];
+    roomDomain = roomDomain.replace('https://', '');
   }
 
   return {
-    code,
-    domain,
+    roomCode,
+    roomDomain,
   };
 };
 

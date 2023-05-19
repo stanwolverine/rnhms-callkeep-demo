@@ -16,7 +16,7 @@ import { styles } from './styles';
 
 import { CustomButton, CustomInput } from '../../components';
 import { saveUserData } from '../../redux/actions';
-import { callService } from '../../utils/functions';
+import { getRoomCodeAndUserId } from '../../utils/functions';
 import { COLORS } from '../../utils/theme';
 
 export const MeetingSetup = () => {
@@ -33,33 +33,20 @@ export const MeetingSetup = () => {
     try {
       setLoading(true);
 
-      /**
-       * Fetching token from 100ms server
-       * "Token" and "Username" are required to join meeting room.
-       * 
-       * For more info about required parameters to join meeting, Check out - 
-       * {@link https://www.100ms.live/docs/react-native/v2/guides/quickstart#joining-a-room | Joining a Room}
-       * 
-       * For more info Token, Check out - 
-       * {@link https://www.100ms.live/docs/react-native/v2/foundation/security-and-tokens | Auth & Token Concepts},
-       * {@link https://www.100ms.live/docs/react-native/v2/guides/token | Token Quickstart Guide},
-       * {@link https://www.100ms.live/docs/react-native/v2/guides/token-endpoint | Token Endpoint Guide}
-       */
-      const data = await callService(peerName, roomLink);
+      const data = await getRoomCodeAndUserId(roomLink);
 
       // Saving data into redux store
       dispatch(
         saveUserData({
-          userName: data.userID,
+          userName: peerName,
           roomCode: data.roomCode,
         })
       );
 
       /**
-       * Since, now we have both "token" and "Username". We can go to Meeting screen to join meeting.
-       * We are passing fetched "token" via screen params and we have "username" in redux store.
+       * Since, now we have both "room code" and "userId". We can go to Meeting screen to join meeting.
        */
-      navigation.replace('MeetingScreen', { token: data.token });
+      navigation.replace('MeetingScreen', { roomCode: data.roomCode, userId: data.userId });
     } catch (error) {
       setLoading(false);
       Alert.alert('Error', error || 'Something went wrong');
