@@ -198,6 +198,7 @@ return <WelcomeScreen />
 
 ## Showcase Video of the App
 
+<video src="https://github.com/stanwolverine/rnhms-callkeep-demo/blob/main/src/assets/rn-callkit-demo.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit"></video>
 
 ## Other Useful links
 
