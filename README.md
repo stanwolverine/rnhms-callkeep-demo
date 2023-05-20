@@ -20,6 +20,10 @@ to the app even when it's in an inactive state.
 > Important Note: React Native Callkeep library and Firebase support are added only for Android. Therefore, the iOS build can only be made on the `main` branch.
 
 
+## Showcase Video of the App
+
+https://github.com/stanwolverine/rnhms-callkeep-demo/assets/45194090/23f06e6c-2088-4a5c-ab2e-5291e104d962
+
 ## Steps to Implement WhatsApp like call feature with 100ms RN SDK
 
 We will implement a basic feature in which the App can receive an incoming call and can answer it. When the user answers the incoming call, it should
@@ -195,10 +199,6 @@ if (data.roomCode) {
 // If roomCode data is unavailable, continue the normal flow
 return <WelcomeScreen />
 ```
-
-## Showcase Video of the App
-
-<video src="https://github.com/stanwolverine/rnhms-callkeep-demo/blob/main/src/assets/rn-callkit-demo.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit"></video>
 
 ## Other Useful links
 
