@@ -5,7 +5,7 @@ import React from 'react';
 import {AppRegistry} from 'react-native';
 import App from './src/App';
 import {name as appName} from './app.json';
-import './fcm-background.service';
+// import './fcm-background.service';
 
 // Check if app was launched in the background and conditionally render null if so
 const HeadlessCheck = ({isHeadless, ...restProps}) => {
