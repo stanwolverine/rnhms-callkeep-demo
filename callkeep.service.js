@@ -5,6 +5,9 @@ import RNCallKeep from 'react-native-callkeep';
 // Calling `RNCallKeep.setup` method is important before `RNCallKeep.displayIncomingCall`
 export const handleCallKeepInitialSetup = () => {
   RNCallKeep.setup({
+    ios: {
+      appName: 'HMS CallKeep Demo',
+    },
     android: {
       alertTitle: 'Permissions required',
       alertDescription: 'This application needs to access your phone accounts',

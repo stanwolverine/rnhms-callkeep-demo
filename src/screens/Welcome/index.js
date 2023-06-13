@@ -6,6 +6,7 @@ import {
   ScrollView,
   StatusBar,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {version} from 'react-native/package.json';
@@ -29,6 +30,10 @@ import {
 } from '../../components';
 import {saveUserData} from '../../redux/actions';
 import {Constants} from '../../utils/types';
+import {
+  displayIncomingCall,
+  handleCallKeepInitialSetup,
+} from '../../../callkeep.service';
 
 export const Welcome = () => {
   const dispatch = useDispatch();
@@ -94,13 +99,20 @@ export const Welcome = () => {
           },
         ]}
         style={styles.container}
-        keyboardShouldPersistTaps="always"
-      >
-        <Image
-          style={styles.image}
-          resizeMode="stretch"
-          source={require('../../assets/illustration.png')}
-        />
+        keyboardShouldPersistTaps="always">
+        <TouchableOpacity
+          onPress={() => {
+            console.log('Image Pressed!');
+            handleCallKeepInitialSetup();
+
+            displayIncomingCall('E26B14F7-2CDF-48D0-9925-532199AE7C48');
+          }}>
+          <Image
+            style={styles.image}
+            resizeMode="stretch"
+            source={require('../../assets/illustration.png')}
+          />
+        </TouchableOpacity>
         <View>
           <Text style={styles.heading}>Experience the power of 100ms</Text>
           <Text style={styles.description}>
