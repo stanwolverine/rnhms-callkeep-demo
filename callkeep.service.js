@@ -1,5 +1,5 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import RNCallKeep from "react-native-callkeep";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import RNCallKeep from 'react-native-callkeep';
 
 // Sets up any data or state before displaying Incoming screen UI
 // Calling `RNCallKeep.setup` method is important before `RNCallKeep.displayIncomingCall`
@@ -20,14 +20,14 @@ export const handleCallKeepInitialSetup = () => {
         notificationTitle: 'My app is running on background',
         // notificationIcon: 'Path to the resource icon of the notification',
       },
-    }
+    },
   });
 
   RNCallKeep.setAvailable(true);
-}
+};
 
 // Display Incoming screen UI
-export const displayIncomingCall = (roomCode) => {
+export const displayIncomingCall = roomCode => {
   RNCallKeep.displayIncomingCall(
     roomCode,
     '100msPhoneNumber',
@@ -35,12 +35,11 @@ export const displayIncomingCall = (roomCode) => {
     'number',
     false,
   );
-}
+};
 
 export const setupAnswerIncomingCallListener = () => {
-
   // Add listener for handling Answer button press
-  RNCallKeep.addEventListener('answerCall', (data) => {
+  RNCallKeep.addEventListener('answerCall', data => {
     // Remove this listener
     RNCallKeep.removeEventListener('answerCall');
 

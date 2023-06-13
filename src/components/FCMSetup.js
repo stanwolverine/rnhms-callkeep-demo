@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 import RNCallKeep from 'react-native-callkeep';
 import messaging from '@react-native-firebase/messaging';
 import { requestNotifications } from 'react-native-permissions';
 
-export const FCMSetup = ({ children }) => {
+export const FCMSetup = ({children}) => {
   // This effect handles Firebase Cloud Messaging & RNCallKeep permissions
   useEffect(() => {
     async function requestUserPermission() {
@@ -26,7 +26,8 @@ export const FCMSetup = ({ children }) => {
       RNCallKeep.setup({
         android: {
           alertTitle: 'Permissions required',
-          alertDescription: 'This application needs to access your phone accounts',
+          alertDescription:
+            'This application needs to access your phone accounts',
           cancelButton: 'Cancel',
           okButton: 'ok',
           imageName: 'phone_account_icon',
@@ -39,7 +40,7 @@ export const FCMSetup = ({ children }) => {
             notificationTitle: 'My app is running on background',
             // notificationIcon: 'Path to the resource icon of the notification',
           },
-        }
+        },
       });
     }
 

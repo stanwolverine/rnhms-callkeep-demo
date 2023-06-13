@@ -8,8 +8,8 @@ import {Welcome} from '../screens/Welcome';
 import {QRCodeScanner} from '../screens/QRCodeScanner';
 import {MeetingSetup} from '../screens/MeetingSetup';
 import {Meeting} from '../screens/MeetingScreen';
-import { FCMSetup } from '../components/FCMSetup';
-import { getRandomUserId } from '../utils/functions';
+import {FCMSetup} from '../components/FCMSetup';
+import {getRandomUserId} from '../utils/functions';
 
 const AppStack = createNativeStackNavigator();
 const navigationOptions = {
@@ -42,9 +42,9 @@ const AppStackNavigator = () => {
         initialDataRef.current = {
           ...parsedData,
           roomCode,
-          userId: getRandomUserId(6)
+          userId: getRandomUserId(6),
         };
-      } catch(error) {
+      } catch (error) {
         // Handle value parse error
       }
       setFetchingInitialData(false);
@@ -55,7 +55,7 @@ const AppStackNavigator = () => {
     // Remove any pending `AsyncStorage` calls
     return () => AsyncStorage.flushGetRequests();
   }, []);
-  
+
   useEffect(() => {
     if (Platform.OS === 'android') {
       if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -69,7 +69,9 @@ const AppStackNavigator = () => {
   }
 
   // Display "Meeting" screen if we have initial Room Code data from Incoming call
-  const initialScreen = initialDataRef.current?.roomCode ? "MeetingScreen" : "WelcomeScreen";
+  const initialScreen = initialDataRef.current?.roomCode
+    ? 'MeetingScreen'
+    : 'WelcomeScreen';
 
   return (
     <NavigationContainer>
