@@ -1,7 +1,7 @@
 # 100ms RN SDK and Callkeep Demo
 
-This repository showcases a basic implementation of [react-native-callkeep](https://github.com/react-native-webrtc/react-native-callkeep) library
-with [100ms React Native SDK](https://github.com/100mslive/react-native-hms).
+An app showcasing the integration of [react-native-callkeep](https://github.com/react-native-webrtc/react-native-callkeep) library with [100ms React Native SDK](https://github.com/100mslive/react-native-hms) to enable VOIP calls such as Whatsapp calls. When a data notification is received, the app presents users a screen with "Answer" and "Reject" buttons with react-native-callkeep library. Upon answering, users are taken to an active call screen UI within the app.
+
 
 The app has implemented basic video call conferencing using `v1.6.2` of the `100mslive/react-native-hms` library. It uses
 [Room Code](https://www.100ms.live/docs/react-native/v2/quickstart/token#get-room-code-from-100ms-dashboard) for generating 100ms Auth Token.
